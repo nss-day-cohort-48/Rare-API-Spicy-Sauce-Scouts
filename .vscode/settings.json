@@ -9,16 +9,8 @@
         {
             "previewLimit": 50,
             "driver": "SQLite",
-            "name": "Database",
-            "database": "db.sqlite3"
-        }
-    ],
-    "sqltools.connections": [
-        {
-            "previewLimit": 50,
-            "driver": "SQLite",
-            "name": "rare",
-            "database": "./db.sqlite3"
+            "database": "db.sqlite3",
+            "name": "raredb"
         }
     ],
 }
