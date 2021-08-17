@@ -4,4 +4,12 @@
         "--load-plugins=pylint_django",
         "--django-settings-module=rare.settings",
     ],
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "db.sqlite3",
+            "name": "rareapidb"
+        }
+    ],
 }
