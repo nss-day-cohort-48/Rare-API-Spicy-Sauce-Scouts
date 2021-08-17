@@ -2,7 +2,16 @@
     "python.linting.pylintEnabled": true,
     "python.linting.pylintArgs": [
         "--load-plugins=pylint_django",
-        "--django-settings-module=rare.settings",
+        "--django-settings-module=rare-api-sauce-scouts.settings",
+    ],
+    "python.linting.enabled": true,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "Database",
+            "database": "db.sqlite3"
+        }
     ],
     "sqltools.connections": [
         {
