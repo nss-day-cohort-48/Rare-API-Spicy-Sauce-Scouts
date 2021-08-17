@@ -1,5 +1,4 @@
 from django.db import models
-# from rareapi.models.tag import Tag
 from django.contrib.auth.models import User # pylint:disable=imported-auth-user
 
 

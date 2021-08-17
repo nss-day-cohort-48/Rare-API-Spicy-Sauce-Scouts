@@ -7,5 +7,3 @@ class Reaction(models.Model):
     label = models.CharField(max_length=50)
     image_url = models.TextField()
 
-    # def __str__(self) -> str:
-    #     return f'{self.label}'
