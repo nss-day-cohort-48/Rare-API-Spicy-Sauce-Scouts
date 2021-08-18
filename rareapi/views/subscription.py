@@ -64,7 +64,7 @@ class SubscriptionsView(ViewSet):
         Returns:
             Response -- JSON serialized list of subscriptions
         """
-        subscriptions = Subscription.objects.filter(follower = request.auth.user)
+        subscriptions = Subscription.objects.filter(follower = request.auth.user.id)
 
         # Support filtering subscriptions by label
 
@@ -77,4 +77,4 @@ class subscriptionSerializer(serializers.ModelSerializer):
     """JSON serializer for subscriptions"""
     class Meta:
         model = Subscription
-        fields = ('id', 'follower', 'author', 'crreated_on', 'ended_on')
+        fields = ('id', 'follower', 'author', 'created_on', 'ended_on')
