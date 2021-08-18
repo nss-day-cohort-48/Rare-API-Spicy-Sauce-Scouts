@@ -1,4 +1,4 @@
-from django import models
+from django.db import models
 
 class Post(models.Model):
     """Post Model
@@ -15,7 +15,6 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     category = models.ForeignKey("Category", on_delete=models.CASCADE)
     content = models.CharField(max_length=300)
-    publication_date = models.DateField.auto_now
     image_url = models.CharField(max_length=500)
     user = models.ForeignKey("User", on_delete=models.CASCADE)
     approved = models.BooleanField()
