@@ -7,7 +7,9 @@ from rest_framework.decorators import action
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from rareapi.models import Subscription
+from rareapi.models import Subscription, RareUser
+from datetime import date
+
 
 
 class SubscriptionsView(ViewSet):
@@ -20,9 +22,9 @@ class SubscriptionsView(ViewSet):
             Response -- JSON serialized subscriptions 
         """
         subscription = Subscription()
-        subscription.follower = request.auth.user
-        subscription.author = request.data["authorId"]
-        subscription.created_on = request.data["created_on"]
+        subscription.follower = RareUser.objects.get(user=request.auth.user)
+        subscription.author = RareUser.objects.get(pk = request.data["authorId"])
+        subscription.created_on = date.today()
 
         try:
             subscription.save()
