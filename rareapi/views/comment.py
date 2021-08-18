@@ -8,7 +8,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from rareapi.models import Comment,Post
-
+from datetime import date
 
 class CommentView(ViewSet):
     """Rare comments"""
@@ -24,7 +24,7 @@ class CommentView(ViewSet):
         comment.post = Post.get(pk=request.data['post'])
         comment.author = User.objects.get(user=request.auth.user)
         comment.content = request.data["content"]
-        comment.created_on = request.data["created_on"]
+        comment.created_on = date.today()
 
 
         try:
