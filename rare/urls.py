@@ -9,11 +9,12 @@ from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
 from rest_framework import routers
-from rareapi.views import TagView, PostView
+from rareapi.views import TagView, PostView, SubscriptionsView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'tags', TagView, 'tag')
 router.register(r'posts', PostView, 'post')
+router.register(r'subscriptions', SubscriptionsView, 'subscription')
 
 
 urlpatterns = [
