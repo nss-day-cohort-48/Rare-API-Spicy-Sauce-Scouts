@@ -1,4 +1,5 @@
 """View module for handling requests about posts"""
+from rareapi.models.rareuser import RareUser
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
@@ -7,6 +8,7 @@ from rest_framework import serializers
 from rest_framework import status
 from django.contrib.auth.models import User  # pylint:disable=imported-auth-user
 from rareapi.models import Post
+from datetime import date
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -39,7 +41,7 @@ class PostView(ViewSet):
         """
 
         # Uses the token passed in the `Authorization` header
-        user = User.objects.get(user=request.auth.user)
+        user = RareUser.objects.get(user=request.auth.user)
 
         # Create a new Python instance of the Post class
         # and set its properties from what was sent in the
@@ -47,10 +49,12 @@ class PostView(ViewSet):
         post = Post()
 
         post.title = request.data["title"]
-        post.publication_date = request.data["publication_date"]
+        post.publication_date = date.today()
         post.image_url = request.data["image_url"]
         post.content = request.data["content"]
         post.approved = request.data["approved"]
+        post.user = user
+        post.category_id = 1
 
         # Use the Django ORM to get the record from the database
         # whose `id` is what the client passed as the
