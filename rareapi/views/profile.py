@@ -1,14 +1,15 @@
 """View module for handling requests about user profiles"""
 from django.contrib.auth.models import User
+from django.http.response import HttpResponseServerError
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from rareapi.models import RareUser, Subscription, rareuser
+from rareapi.models import RareUser
 
 
-class Profile(ViewSet):
+class ProfileView(ViewSet):
     """User can see profile information"""
 
     def list(self, request):
@@ -17,20 +18,36 @@ class Profile(ViewSet):
         Returns:
             Response -- JSON representation of user info
         """
-        rareuser = RareUser.objects.get(user=request.auth.user)
-        subscriptions = Subscription.objects.filter(subscribers=rareuser)
+        rareusers = RareUser.objects.all()
 
-        subscriptions = SubscriptionsSerializer(
-            subscriptions, many=True, context={'request': request})
-        rareuser = RareUserSerializer(
+        serializer = RareUserSerializer(
+            rareusers, many=True, context={'request': request})
+
+            # Manually construct the JSON structure you want in the response
+        return Response(serializer.data)
+
+    def retrieve (self, request, pk=None):
+        """Handle GET requests to single profile
+
+        Returns:
+            Response -- JSON representation of user info
+        """
+        try:
+
+            rareuser = RareUser.objects.get(pk=pk)
+
+            rareuser = RareUserSerializer(
             rareuser, many=False, context={'request': request})
 
-        # Manually construct the JSON structure you want in the response
-        profile = {}
-        profile["rareuser"] = rareuser.data
-        profile["subscriptions"] = subscriptions.data
+            # Manually construct the JSON structure you want in the response
+            profile = {}
+            profile["rareuser"] = rareuser.data
 
-        return Response(profile)
+            return Response(profile)
+
+        except Exception as ex:
+            return HttpResponseServerError(ex)
+
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -47,11 +64,3 @@ class RareUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = RareUser
         fields = ('user', 'bio', 'profile_image_url')
-
-
-class SubscriptionsSerializer(serializers.ModelSerializer):
-    """JSON serializer for events"""
-
-    class Meta:
-        model = Subscription
-        fields = ('id', 'game', 'description', 'date', 'time')
