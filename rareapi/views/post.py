@@ -101,22 +101,18 @@ class PostView(ViewSet):
         Returns:
             Response -- Empty body with 204 status code
         """
-        post = Post.objects.get(user=request.auth.user)
-
+        post = Post.objects.get(pk=pk)
+        post.rareuser = RareUser.objects.get(user=request.auth.user)
         # Do mostly the same thing as POST, but instead of
         # creating a new instance of Post, get the post record
         # from the database whose primary key is `pk`
         # Via query params, PK becomes whatever ID is passed through the param
-        post = Post.objects.get(pk=pk)
-        post.name = request.data["name"]
-        post.maker = request.data["maker"]
-        post.number_of_players = request.data["numberOfPlayers"]
-        post.description = request.data["description"]
+        post.title = request.data["title"]
+        post.publication_date = date.today()
+        post.image_url = request.data["image_url"]
+        post.content = request.data["content"]
         post.post = post
-
-        # ? post_type = PostType.objects.get(pk=request.data["postTypeId"])
-        # ? post.post_type = post_type
-
+        post.category_id = 1
         post.save()
 
         # 204 status code means everything worked but the
