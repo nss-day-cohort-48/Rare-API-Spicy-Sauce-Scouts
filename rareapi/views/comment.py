@@ -19,7 +19,6 @@ class CommentView(ViewSet):
         Returns:
             Response -- JSON serialized comments 
         """
-        comment = Comment.objects.get()
         comment = Comment()
         comment.post = Post.objects.get(pk=request.data['post'])
         comment.author =  RareUser.objects.get(user=request.auth.user)
