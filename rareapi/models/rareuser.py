@@ -10,11 +10,25 @@ class RareUser(models.Model):
     profile_image_url = models.TextField()
 
     @property
+
     def first_name(self):
-        """returns first name"""
+        """"""
         return self.user.first_name
 
     @property
+
     def last_name(self):
-        """returns first name"""
+        """"""
         return self.user.last_name
+
+    @property
+
+    def email(self):
+        """"""
+        return self.user.email
+
+    @property
+
+    def username(self):
+        """"""
+        return self.user.username

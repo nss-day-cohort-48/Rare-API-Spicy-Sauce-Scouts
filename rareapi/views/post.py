@@ -15,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
     """JSON serializer for event host's related Django user"""
     class Meta:
         model = RareUser
-        fields = ('first_name', 'last_name', 'email')
+        fields = ('first_name', 'last_name', 'email', 'username')
 
 class PostSerializer(serializers.ModelSerializer):
     """JSON serializer for posts
@@ -32,7 +32,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class PostView(ViewSet):
-    """Level up posts"""
+
 
     def create(self, request):
         """Handle POST operations
@@ -42,6 +42,7 @@ class PostView(ViewSet):
 
         # Uses the token passed in the `Authorization` header
         user = RareUser.objects.get(user=request.auth.user)
+        print(user)
 
         # Create a new Python instance of the Post class
         # and set its properties from what was sent in the
