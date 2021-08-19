@@ -7,7 +7,7 @@ from rest_framework.decorators import action
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from rareapi.models import Comment,Post
+from rareapi.models import Comment,Post,RareUser
 from datetime import date
 
 class CommentView(ViewSet):
@@ -21,8 +21,8 @@ class CommentView(ViewSet):
         """
         comment = Comment.objects.get()
         comment = Comment()
-        comment.post = Post.get(pk=request.data['post'])
-        comment.author = User.objects.get(user=request.auth.user)
+        comment.post = Post.objects.get(pk=request.data['post'])
+        comment.author =  RareUser.objects.get(user=request.auth.user)
         comment.content = request.data["content"]
         comment.created_on = date.today()
 

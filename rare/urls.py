@@ -9,21 +9,14 @@ from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
 from rest_framework import routers
-<<<<<<< HEAD
-from rareapi.views import TagView, PostView, CommentView
-=======
-from rareapi.views import TagView, PostView, SubscriptionsView
->>>>>>> main
+from rareapi.views import TagView, PostView, SubscriptionsView, CommentView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'tags', TagView, 'tag')
 router.register(r'posts', PostView, 'post')
-<<<<<<< HEAD
 router.register(r'comments', CommentView, 'comment')
-=======
 router.register(r'subscriptions', SubscriptionsView, 'subscription')
 
->>>>>>> main
 
 urlpatterns = [
     path('', include(router.urls)),
