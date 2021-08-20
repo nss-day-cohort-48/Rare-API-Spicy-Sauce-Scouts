@@ -9,7 +9,7 @@ from rest_framework import serializers
 from rareapi.models import RareUser
 
 
-class ProfileView(ViewSet):
+class AuthorView(ViewSet):
     """User can see profile information"""
 
     def list(self, request):
