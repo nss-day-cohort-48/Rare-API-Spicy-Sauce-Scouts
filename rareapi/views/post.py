@@ -1,5 +1,5 @@
 """View module for handling requests about posts"""
-from rareapi.models.rareuser import RareUser
+# from rareapi.models.rareuser import RareUser
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import serializers
 from rest_framework import status
 from django.contrib.auth.models import User  # pylint:disable=imported-auth-user
-from rareapi.models import Post
+from rareapi.models import Post, RareUser
 from datetime import date
 
 
@@ -15,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
     """JSON serializer for event host's related Django user"""
     class Meta:
         model = RareUser
-        fields = ('first_name', 'last_name', 'email', 'username')
+        fields = ('first_name', 'last_name', 'email', 'username', 'id')
 
 class PostSerializer(serializers.ModelSerializer):
     """JSON serializer for posts
@@ -27,7 +27,7 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ('id', 'title', 'content', 'publication_date',
-                  'image_url', 'approved', 'category', 'tags', 'user')
+                  'image_url', 'approved', 'category', 'tags', 'user', 'comment_set')
         depth = 1
 
 
