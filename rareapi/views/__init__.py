@@ -4,4 +4,4 @@ from .auth import register_user
 from .tag import TagView
 from .post import PostView
 from .subscription import SubscriptionsView
-from .profile import ProfileView
+from .author import AuthorView

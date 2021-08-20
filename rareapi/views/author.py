@@ -51,14 +51,14 @@ class AuthorView(ViewSet):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    """JSON serializer for gamer's related Django user"""
+    """JSON serializer for rareUser's related Django user"""
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'username')
 
 
 class RareUserSerializer(serializers.ModelSerializer):
-    """JSON serializer for gamers"""
+    """JSON serializer for RareUsers"""
     user = UserSerializer(many=False)
 
     class Meta:
