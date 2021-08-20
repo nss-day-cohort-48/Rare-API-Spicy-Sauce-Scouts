@@ -94,9 +94,17 @@ class CommentView(ViewSet):
             comments, many=True, context={'request': request})
         return Response(serializer.data)
 
+class UserSerializer(serializers.ModelSerializer):
+    """JSON serializer for event host's related Django user"""
+    class Meta:
+        model = RareUser
+        fields = ('first_name', 'last_name', 'email', 'username')
+
 
 class CommentSerializer(serializers.ModelSerializer):
     """JSON serializer for comments"""
+    author = UserSerializer(many=False)
     class Meta:
         model = Comment
         fields = ('id', 'post', 'author', 'content', 'created_on')
+        depth = 1
