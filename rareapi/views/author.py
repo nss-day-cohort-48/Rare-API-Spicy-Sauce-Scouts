@@ -6,7 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from rareapi.models import RareUser
+from rareapi.models import RareUser, Post
 
 
 class AuthorView(ViewSet):
@@ -49,6 +49,16 @@ class AuthorView(ViewSet):
             return HttpResponseServerError(ex)
 
 
+# class PostSerializer(serializers.ModelSerializer):
+#     """JSON serializer for posts
+#     Arguments:
+#         serializer type
+#     """
+#     class Meta:
+#         model = Post
+#         fields = ('id', 'title', 'content', 'publication_date',
+#                   'image_url', 'approved', 'category', 'tags', 'user')
+        
 
 class UserSerializer(serializers.ModelSerializer):
     """JSON serializer for rareUser's related Django user"""
@@ -60,7 +70,12 @@ class UserSerializer(serializers.ModelSerializer):
 class RareUserSerializer(serializers.ModelSerializer):
     """JSON serializer for RareUsers"""
     user = UserSerializer(many=False)
+    # posts = PostSerializer(many=True)
 
     class Meta:
         model = RareUser
-        fields = ('user', 'bio', 'profile_image_url')
+        fields = ('id', 'user', 'bio', 'profile_image_url', 'post_set')
+        depth = 1
+
+
+

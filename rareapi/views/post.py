@@ -15,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
     """JSON serializer for event host's related Django user"""
     class Meta:
         model = RareUser
-        fields = ('first_name', 'last_name', 'email', 'username')
+        fields = ('first_name', 'last_name', 'email', 'username', 'id')
 
 class PostSerializer(serializers.ModelSerializer):
     """JSON serializer for posts
@@ -27,7 +27,7 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ('id', 'title', 'content', 'publication_date',
-                  'image_url', 'approved', 'category', 'tags', 'user')
+                  'image_url', 'approved', 'category', 'tags', 'user', 'comment_set')
         depth = 1
 
 
